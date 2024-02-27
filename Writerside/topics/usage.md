@@ -93,7 +93,7 @@ When the device enter a measurement schedule, it must close its result file if i
 mode, invalidating the previous result.
 
 The GUI can use [Get Measure Progress](interface-module.md#get-measure-progress) to fetch the measure progress from the
-interface card. It can also use [Get last measure](acquisition-module.md#get-last-measure) to get the last measure sample from 
+interface card. It can also use [Get last sample](acquisition-module.md#get-last-sample) to get the last measure sample from 
 
 Once the measure is done, the result file must be flushed and closed.
 

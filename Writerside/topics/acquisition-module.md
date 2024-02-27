@@ -60,9 +60,10 @@ Init --> Error: onError
 LowPower --> Error: onError
 Idle --> Error: onError
 Measure --> Error: onError
-Idle --> [*]: onPowerOff
-Measure --> [*]: onPowerOff
-LowPower --> [*]: onPowerOff
+Idle --> Shutdown :onPowerOff
+Measure --> Shutdown : onPowerOff
+LowPower --> Shutdown:  onPowerOff
+Shutdown --> [*] : 5s
 ```
 
 `inactive` is triggered when:
@@ -147,13 +148,14 @@ When in this mode, the LED must blink at 4Hz and the user must be able to fetch 
 
 ## Powered-on Interfaces
 
-| Mode     | SubMode    | Probe                          | CAN                 | LoRa     | IMU                               |
-|----------|------------|--------------------------------|---------------------|----------|-----------------------------------|
-| Init     | None       | Disabled                       | Disabled            | Disabled | Disabled                          |
-| LowPower | Deep sleep | Disabled                       | Disabled            | Disabled | Disabled                          | 
-| LowPower | Semi Awake | Brief power on for temperature | Disabled            | RX       | Single acquisition                | 
-| Idle     | None       | Brief power on for temperature | Enabled  if plugged | RX       | Periodic acquisition              |
-| Measure  | None       | Enabled                        | Enabled if plugged  | RX       | Periodic acquisi             tion | 
+| Mode     | SubMode    | Probe                          | CAN                | LoRa     | IMU                  |
+|----------|------------|--------------------------------|--------------------|----------|----------------------|
+| Init     | None       | Disabled                       | Disabled           | Disabled | Disabled             |
+| LowPower | Deep sleep | Disabled                       | Disabled           | Disabled | Disabled             | 
+| LowPower | Semi Awake | Brief power on for temperature | Disabled           | RX       | Single acquisition   | 
+| Idle     | None       | Brief power on for temperature | Enabled if plugged | RX       | Periodic acquisition |
+| Measure  | None       | Enabled                        | Enabled if plugged | RX       | Periodic acquisition |
+| Shutdown | None       | Disabled                       | Enabled if plugged | RX       | Disabled             |
 
 ## Status LED
 
@@ -170,6 +172,7 @@ module is.
 | Idle     | Charged      | On for 900ms every second    |
 | Measure  | None         | On for 100ms every second    |
 | Error    | None         | Blink at 4Hz                 |
+| Shutdown | None         | Stays on                     |
 
 ## Measures
 
@@ -183,6 +186,7 @@ Depending on the mode, the device must periodically run a measurement on its sen
 | Idle      | None       | Battery, Temperature, IMU        | 1Hz       |
 | Measure   | None       | Battery, Temperature, IMU, Gauge | 1Hz       |
 | Error     | None       | Battery, Temperature, IMU        | 1Hz       |
+| Shutdown  | None       | None                             | None      |
 
 ### Battery
 
@@ -228,6 +232,8 @@ The thermistor properties is ???.
 | 19 | Calibrate                  | Calibrate the sensor                 |
 | 20 | Get calibration            | Get last calibration value           | 
 
+---
+
 ### Get Version {id="get-version"}
 
 Request acquisition module version
@@ -238,7 +244,9 @@ none
 
 #### Returns {id="get-version-returns"}
 
-- version: [Version](structures.md#version)
+- version: [Version](structures.md#version).
+
+---
 
 ### Get Post
 
@@ -250,7 +258,9 @@ None
 
 #### Returns {id="get-post-returns"}
 
-- post: [AcquisitionPost](structures.md#acquisitionpost)
+- post: [AcquisitionPost](structures.md#acquisitionpost).
+
+---
 
 ### Get Time {id="get-time"}
 
@@ -262,7 +272,9 @@ None
 
 #### Returns {id="get-time-returns"}
 
-- time: u32
+- time: [Time](alias.md#time).
+
+---
 
 ### Set Time {id="set-time"}
 
@@ -270,50 +282,56 @@ Set the MCU systick
 
 #### Parameters {id="set-time-parameters"}
 
-- time: u32
+- time: [Time](alias.md#time).
 
 #### Returns {id="set-time-returns"}
 
-- time: u32
+- time: [Time](alias.md#time).
+
+---
 
 ### Get Configuration Field {id="get-configuration-field"}
 
-Fetch a field from the configuration
+Fetch a field from the configuration.
 
 #### Parameters {id="get-configuration-field-parameters"}
 
-- section: String
-- name: String
+- section: String,
+- name: String.
 
 #### Returns {id="get-configuration-field-returns"}
 
-- section: String
-- name: String
-- value: String, empty if non-existent
+- section: String,
+- name: String,
+- value: String, empty if non-existent.
+
+---
 
 ### Set Configuration Field {id="set-configuration-field"}
 
 Set a field to the configuration.
 
-If the value is set to empty, the field will be removed from the configuration.
+If the value is empty, the field will be removed from the configuration.
 
-If the section is empty, it will be removed from the configuration.
+If there is no field inside a section, it will be removed from the configuration.
 
 #### Parameters {id="set-configuration-field-parameters"}
 
-- section : [String](alias.md#string)
-- name: String
-- value: String
+- section : String,
+- name: String,
+- value: String.
 
 #### Returns {id="set-configuration-field-returns"}
 
-- section: String
-- name: String
-- value: String
+- section: String,
+- name: String,
+- value: String.
+
+---
 
 ### Get Probe Connection State
 
-Get probe connection state
+Tell if a probe is connected to the acquisition module.
 
 #### Parameters {id="get-probe-connection-state-parameters"}
 
@@ -321,11 +339,13 @@ None
 
 #### Returns {id="get-probe-connection-state-returns"}
 
-- state: [ProbeConnectionState](enumerations.md#probeconnectionstate),
+- state: [ProbeConnectionState](enumerations.md#probeconnectionstate).
+
+---
 
 ### Get Battery State {id="get-battery-state"}
 
-Request the current state of the battery
+Get the last known battery state.
 
 #### Parameters {id="get-battery-state-parameters"}
 
@@ -333,13 +353,15 @@ None
 
 #### Returns {id="get-battery-state-returns"}
 
-- level: float, current voltage of the battery
-- acs: bool, state of the acs pin
-- charge: bool, state of the charge pin
+- voltage: float, last measure voltage,
+- acs: bool, true if module is plugged,
+- charge: bool, true if module is charging.
+
+---
 
 ### Get Temperature
 
-Get the last measured temperature
+Get the last measured temperature.
 
 #### Parameters {id="get-temperature-parameters"}
 
@@ -347,11 +369,14 @@ None
 
 #### Returns {id="get-temperature-returns"}
 
-- temperature: i16, temperature in celsius
+- internal: i16, MCU internal temperature in Celsius,
+- thermistor: i16, probe temperature in Celsius.
+
+---
 
 ### Get IMU
 
-Get the last measured IMU
+Get the last measured IMU.
 
 #### Parameters {id="get-imu-parameters"}
 
@@ -361,17 +386,38 @@ None
 
 - orientation: [Orientation](structures.md#orientation).
 
-### Do Gauge Measurement
+---
 
-Trigger a single measurement
+### Start single measurement
 
-#### Parameters {id="-parameters"}
+Trigger a single complete measurement of all sensor on the MCU.
+Return the current time in order to check if last sample is valid.
+
+#### Parameters {id="start-single-measurement-parameters"}
 
 None
 
-#### Returns {id="-returns"}
+#### Returns {id="start-single-measurement-returns"}
+
+- time: [Time](alias.md#time), time when the measure as been accepted.
+
+---
+
+### Get last Sample
+
+Fetch last acquisition measure sample.
+
+Sample is updated when in measure mode or after requesting a single measurement.
+
+#### Parameters {id="get-last-sample-parameters"}
 
 None
+
+#### Returns {id="get-last-sample-returns"}
+
+- sample: [AcquisitionMeasureSample](structures.md#acquisitionmeasuresample)
+
+---
 
 ### Sleep {id="sleep"}
 
@@ -385,7 +431,9 @@ None
 
 #### Returns {id="sleep-returns"}
 
-None
+- mode: [AcquisitionMode](enumerations.md#acquisitionmode).
+
+--- 
 
 ### Wake Up {id="wake-up"}
 
@@ -397,9 +445,13 @@ None
 
 #### Returns {id="wake-up-returns"}
 
-None
+- mode: [AcquisitionMode](enumerations.md#acquisitionmode).
+
+--- 
 
 ### Shutdown
+
+Switch to shut down.
 
 #### Parameters {id="shutdown-parameters"}
 
@@ -407,7 +459,9 @@ None
 
 #### Returns {id="shutdown-returns"}
 
-None
+- mode: [AcquisitionMode](enumerations.md#acquisitionmode).
+
+---
 
 ### Get Measure Schedule {id="get-measure-schedule"}
 
@@ -421,13 +475,13 @@ None
 
 - schedule: [MeasureSchedule](structures.md#measureschedule).
 
+---
+
 ### Set Measure Schedule {id="set-measure-schedule"}
 
 Schedule the next measurements.
 
-Setting time to 0 cancel it.
-
-When set, the module will invalidate the previous measure
+If schedule time is 0, will cancel the current measurement.
 
 #### Parameters {id="set-measure-schedule-parameters"}
 
@@ -437,23 +491,31 @@ When set, the module will invalidate the previous measure
 
 - schedule: [MeasureSchedule](structures.md#measureschedule).
 
+---
+
 ### Get Measure Result
 
 Will fetch the last measure samples.
 
 #### Parameters {id="get-measure-result-parameters"}
 
-- start: u16,
-- length: u16,
-- force: bool.
+- start: u16, index of the first sample,
+- length: u16, maximum number of samples to return.
 
 #### Returns {id="get-measure-result-returns"}
 
-- samples: [Acquisition Measure Samples](structures.md#acquisitionmeasuresample)
+- start: u16, index of the first sample,
+- length: u16, number of samples in this chunk,
+- total: u16, total number of samples available,
+- samples: Array([Acquisition Measure Samples](structures.md#acquisitionmeasuresample)).
+
+---
 
 ### Calibrate {id="calibrate"}
 
 Trigger a calibration of the sensors.
+
+Return time allowing to tell if receive calibration is valid.
 
 #### Parameters {id="calibrate-parameters"}
 
@@ -461,7 +523,9 @@ None
 
 #### Returns {id="calibrate-returns"}
 
-None
+- time: [Time](alias.md#time), time when the request was accepted.
+
+---
 
 ### Get Calibration {id="get-calibration"}
 
@@ -473,4 +537,6 @@ None
 
 #### Returns {id="get-calibration-returns"}
 
-- time: u32
+- calibration: [AcquisitionCalibration](structures.md#acquisitioncalibration).
+
+---

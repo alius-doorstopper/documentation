@@ -6,22 +6,22 @@ The interface module serves as the interface between the [Acquisition](acquisiti
 
 ## Commands
 
-| # | Name                     | Connection | Description                                         | 
-|---|--------------------------|------------|-----------------------------------------------------|
-| 1 | Get Version              | false      | Get bridge current version                          |
-|   | Get Medium Configuration | false      | Return the currently selected medium                |
-|   | Set Medium Configuration | false      | Set what medium to use                              |
-|   | Get Acquisition State    | true       | Request the current state to the acquisition module |
-|   | Start Measure            | true       | Start a measure                                     |
-|   | Stop Measure             | true       | Cancel the current measure                          |
-|   | Get Measure Progress     | true       |                                                     |
-|   | Get Measure Result       | true       | Fetch a measure result                              |
-|   | Send Command             | true       | Send directly a command to the acquisition module   |
+| # | Name                     | Connection | Description                                        | 
+|---|--------------------------|------------|----------------------------------------------------|
+| 1 | Get Version              | false      | Get bridge current version                         |
+| 2 | Get Medium Configuration | false      | Return the currently selected medium               |
+| 3 | Set Medium Configuration | false      | Set what medium to use                             |
+| 4 | Get Acquisition Mode     | true       | Request the current mode to the acquisition module |
+| 5 | Start Measure            | true       | Start a measure                                    |
+| 6 | Stop Measure             | true       | Cancel the current measure                         |
+| 7 | Get Measure Progress     | true       |                                                    |
+| 8 | Get Measure Result       | true       | Fetch a measure result                             |
+| 9 | Send Command             | true       | Send directly a command to the acquisition module  |
 
 When using LoRa, and for each command that requires a connection with the acquisition module, a wake-up command is
 issued
 first in order to make sure that the device is awake. If the device does not wake up, the command fails.
-This wake-up call applies for: [Get Acquisition State](#get-acquisition-state), [Start Measure](#start-measure), [Stop
+This wake-up call applies for: [Get Acquisition Mode](#get-acquisition-mode), [Start Measure](#start-measure), [Stop
 Measure](#stop-measure), [Get Measure Progress](#get-measure-progress), [Send Command](#send-command)
 
 ```plantuml
@@ -38,6 +38,8 @@ return response
 @enduml
 ```
 
+--- 
+
 ### Get version
 
 Return the firmware version of the module.
@@ -49,6 +51,8 @@ None
 #### Returns {id="get-version-returns"}
 
 - version: [Version](structures.md#version)
+
+---
 
 ### Get Medium Configuration
 
@@ -63,6 +67,8 @@ None
 
 - configuration: [MediumConfiguration](structures.md#mediumconfiguration).
 
+---
+
 ### Set Medium Configuration
 
 Change module medium configuration.
@@ -75,23 +81,26 @@ Change module medium configuration.
 
 - configuration: [MediumConfiguration](structures.md#mediumconfiguration).
 
-### Get Acquisition State
+---
 
-Fetch the connected acquisition module state.
+### Get Acquisition Mode
 
-#### Parameters {id="get-acquisition-state-parameters"}
+Fetch the connected acquisition module mode.
 
-None
-
-#### Returns {id="get-acquisition-state-returns"}
+#### Parameters {id="get-acquisition-mode-parameters"}
 
 None
+
+#### Returns {id="get-acquisition-mode-returns"}
+
+- mode: [AcquisitionMode](enumerations.md#acquisitionmode)
+
+---
 
 ### Start Measure
 
 Trigger a new measurements.
-This will synchronize both modules then schedule a measure in the next 5 seconds.
-Will invalidate the last result if the measure starts.
+This will synchronize both modules then schedule a measure in the next 15 seconds.
 
 #### Parameters {id="start-measure-parameters"}
 
@@ -100,6 +109,8 @@ Will invalidate the last result if the measure starts.
 #### Returns {id="start-measure-returns"}
 
 - schedule: [MeasureSchedule](structures.md#measureschedule), the schedule of the measure.
+
+---
 
 ### Stop Measure
 
@@ -112,9 +123,13 @@ None
 
 #### Returns {id="stop-measure-returns"}
 
-None
+- schedule: [MeasureSchedule](structures.md#measureschedule).
+
+---
 
 ### Get Measure Progress
+
+Request a progression report from the interface.
 
 #### Parameters {id="get-measure-progress-parameters"}
 
@@ -125,6 +140,8 @@ None
 - schedule: [MeasureSchedule](structures.md#measureschedule),
 - sample: [InterfaceSamples](structures.md#interfacemeasuresample), last sample from interface,
 - time: [Time](alias.md#time), current time for the interface.
+
+---
 
 ### Get Measure Result
 
@@ -145,12 +162,20 @@ Fetch results samples from either the Interface or acquisition modules.
 - samples: [Interface samples](structures.md#interfacemeasuresample), if device is
   Interface, [Acquisition samples](structures.md#acquisitionmeasuresample)
 
+---
+
 ### Send Command
+
+Allows to directly send any commands to the acquisition module
 
 #### Parameters {id="send-command-parameters"}
 
-- address: String,
+- id: u8, command ID,
+- payload: Array(u8).
 
 #### Returns {id="send-command-returns"}
 
-None
+- id: u8, command ID,
+- payload: Array(u8).
+
+---

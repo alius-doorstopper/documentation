@@ -22,10 +22,11 @@ Report the probe connection state of an [acquisition module](acquisition-module.
 
 Tell the mode of the [acquisition module](acquisition-module.md)
 
-1. Idle,
+1. Init,
 2. LowPower,
-3. Measure,
-4. Error.
+3. Idle,
+4. Measure,
+5. Error.
 
 ## MeasureState
 

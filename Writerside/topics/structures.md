@@ -66,6 +66,16 @@
 - medium: [CommunicationMedium](enumerations.md#communicationmedium),
 - address: [Address](alias.md#address), recipient address if medium is LoRa.
 
+## GaugeCalibration
+
+- balanced: u32,
+- unbalanced: u32.
+
+## AcquisitionCalibration
+
+- time: [Time](alias.md#time), time of the calibration,
+- gauge: Array([GaugeCalibration](#gaugecalibration), 4), gauge calibrations.
+
 ## AcquisitionPost
 
 - passed: bool,
