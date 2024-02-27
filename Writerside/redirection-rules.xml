@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE rules SYSTEM "https://resources.jetbrains.com/writerside/1.0/redirection-rules.dtd">
+<rules>
+    <!-- format is as follows
+    <rule id="<unique id>">
+        <accepts>page.html</accepts>
+    </rule>
+    -->
+    <rule id="1e957bcc">
+        <description>Created after removal of "This is the first topic" from Help Instance</description>
+        <accepts>Default-topic.html</accepts>
+    </rule>
+    <rule id="1257f76b">
+        <description>Created after removal of "Communication" from main</description>
+        <accepts>communication.html</accepts>
+    </rule>
+    <rule id="6f10e4f6">
+        <description>Created after removal of "Controller" from main</description>
+        <accepts>controller.html</accepts>
+    </rule>
+    <rule id="6e027d75">
+        <description>Created after removal of "Communications" from main</description>
+        <accepts>Communication.html</accepts>
+    </rule>
+</rules>
