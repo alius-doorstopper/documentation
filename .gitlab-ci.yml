@@ -1,8 +1,8 @@
 variables:
   # Name of help module and instance id separated by a slash
-  INSTANCE: 'Writerside/m'
+  INSTANCE: 'Writerside/d'
   # Replace HI with the ID of the instance in capital letters
-  ARTIFACT: 'webHelpM2-all.zip'
+  ARTIFACT: 'webHelpD2-all.zip'
   # Writerside Docker image version
   DOCKER_VERSION: '233.14389'
 
