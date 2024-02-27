@@ -1,0 +1,63 @@
+variables:
+  # Name of help module and instance id separated by a slash
+  INSTANCE: 'Writerside/m'
+  # Replace HI with the ID of the instance in capital letters
+  ARTIFACT: 'webHelpM2-all.zip'
+  # Writerside Docker image version
+  DOCKER_VERSION: '233.14389'
+
+stages:
+  - build
+  - test
+  - deploy
+
+# This is the main build job
+build:
+  stage: build
+  image: registry.jetbrains.team/p/writerside/builder/writerside-builder:$DOCKER_VERSION
+  tags:
+    - docker
+  script:
+    - set -e
+    - export DISPLAY=:99
+    - Xvfb :99 &
+    - /opt/builder/bin/idea.sh helpbuilderinspect -source-dir . -product $INSTANCE --runner gitlab -output-dir public/ || true
+    - echo "Test existing of $ARTIFACT artifact"
+    - test -e public/$ARTIFACT
+  artifacts:
+    paths:
+      # The folder that contains the built HTML files to be published and a test report
+      - public/$ARTIFACT
+      - public/report.json
+    expire_in: 1 week
+
+# Add a test job if you want to fail the build when documentation contains errors.
+test:
+  stage: test
+  image: openjdk:18-jdk-alpine
+  before_script:
+    - apk add curl
+  tags:
+    - docker
+  script:
+    - cd public
+    - curl -o wrs-checker.jar -L https://packages.jetbrains.team/maven/p/writerside/maven/com/jetbrains/writerside/writerside-ci-checker/1.0/writerside-ci-checker-1.0.jar
+    - java -jar wrs-checker.jar report.json $INSTANCE
+
+# Deploy the results of the build to GitLab Pages
+pages:
+  stage: deploy
+  image: ubuntu:20.04
+  before_script:
+    - apt-get update -y && apt-get install unzip -y
+  tags:
+    - docker
+
+  script:
+    - cd \public
+    - unzip -O UTF-8 $ARTIFACT
+
+  artifacts:
+    paths:
+      - public
+    expire_in: 1 week
