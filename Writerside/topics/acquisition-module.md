@@ -25,6 +25,7 @@ autoPowerOff    = 3600        # Duration in s before a device will automatically
 [Measure]
 osr             = 15          # 1: 64, 2: 128, 3: 256, 4: 512, 5: 1024, 6: 2048, 7: 4096, 8: 8192, 9: 16384, 15: 32768
 meanWidth       = 1           # number of sample to use for the moving average
+thermistor      = 1           # kind of thermistor used by the probe
 
 [LoRa]
 address         = 00000000    # 8-digit hex number representing the LoRa address of the device. Must be unique.
@@ -372,7 +373,7 @@ None
 #### Returns {id="get-temperature-returns"}
 
 - internal: i16, MCU internal temperature in Celsius,
-- thermistor: i16, probe temperature in Celsius.
+- thermistor: u32, raw probe thermistor value.
 
 ---
 

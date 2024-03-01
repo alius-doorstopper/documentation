@@ -54,6 +54,12 @@ Used by the Acquisition module to known on what medium to answer.
 3. release-candidate,
 4. release.
 
+## Thermistor
+tbd
+1. x
+2. y
+3. z
+
 ## Error
 
 Special kind of enumeration, items are not in sequential order to separate them into groups.
