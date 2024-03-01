@@ -209,28 +209,29 @@ The thermistor properties is ???.
 
 ## Commands
 
-| #  | Name                       | Description                          |
-|----|----------------------------|:-------------------------------------|
-| 1  | Get version                | Return current version               |
-| 2  | Get post                   | Return the post result               |
-| 3  | Get time                   | Return the current time              |
-| 4  | Set time                   | Set the current time                 | 
-| 5  | Get configuration field    | Return a configuration field         |
-| 6  | Set configuration field    | Set a configuration field            |
-| 7  | Get probe connection state | Get the probe connection state       | 
-| 8  | Get battery state          | return the battery state             |
-| 9  | Get temperature            | Return the last temperature measured |
-| 10 | Get IMU                    | Return the last IMU measured         |
-| 11 | Start single measurement   | Run a single measurement             |
-| 12 | Get last sample            | Return the last sample               |
-| 13 | Sleep                      | Switch from idle to sleep mode       | 
-| 14 | Wake up                    | Switch from sleep to idle mode       | 
-| 15 | Shutdown                   | Shutdown the device                  |
-| 16 | Set measure schedule       | Schedule a measure                   |
-| 17 | Get measure schedule       | Return the next schedule measure     |
-| 18 | Get measure result         | Fetch the last measure result        |
-| 19 | Calibrate                  | Calibrate the sensor                 |
-| 20 | Get calibration            | Get last calibration value           | 
+| #  | Name                       | Description                              |
+|----|----------------------------|:-----------------------------------------|
+| 1  | Get version                | Return current version                   |
+| 2  | Get post                   | Return the post result                   |
+| 3  | Get time                   | Return the current time                  |
+| 4  | Set time                   | Set the current time                     | 
+| 5  | Get configuration field    | Return a configuration field             |
+| 6  | Set configuration field    | Set a configuration field                |
+| 7  | Get probe connection state | Get the probe connection state           | 
+| 8  | Get battery state          | return the battery state                 |
+| 9  | Get temperature            | Return the last temperature measured     |
+| 10 | Get IMU                    | Return the last IMU measured             |
+| 11 | Set IMU                    | Reset the IMU reference to current value |
+| 12 | Start single measurement   | Run a single measurement                 |
+| 13 | Get last sample            | Return the last sample                   |
+| 14 | Sleep                      | Switch from idle to sleep mode           | 
+| 15 | Wake up                    | Switch from sleep to idle mode           | 
+| 16 | Shutdown                   | Shutdown the device                      |
+| 17 | Get measure schedule       | Return the next schedule measure         |
+| 18 | Set measure schedule       | Schedule a measure                       |
+| 19 | Get measure result         | Fetch the last measure result            |
+| 20 | Calibrate                  | Calibrate the sensor                     |
+| 21 | Get calibration            | Get last calibration value               | 
 
 ---
 
@@ -385,6 +386,17 @@ None
 #### Returns {id="get-imu-returns"}
 
 - orientation: [Orientation](structures.md#orientation).
+
+---
+
+### Set IMU
+Reset the IMU reference to current value.
+Returns the orientation which should be 0,0,0.
+
+#### Parameters {id="set-imu-parameters"}
+None
+#### Returns {id="set-imu-returns"}
+- orientation: [Orientation](structures.md#orientation)
 
 ---
 
