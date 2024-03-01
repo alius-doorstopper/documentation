@@ -53,3 +53,28 @@ Used by the Acquisition module to known on what medium to answer.
 2. beta,
 3. release-candidate,
 4. release.
+
+## Error
+
+Special kind of enumeration, items are not in sequential order to separate them into groups.
+
+First byte is for the group, second byte is for the description.
+
+`0000` and `FFFF` are special values that do not belong to a group.
+
+| hex  | group         | description        |
+|------|---------------|--------------------|
+| 0000 | ALL           | Unknown            |
+| 0001 | NONE          | Undocumented       |
+| 0002 | NONE          | Unimplemented      |
+| 0101 | HAL           | Error              | 
+| 0102 | HAL           | Busy               | 
+| 0103 | HAL           | Timeout            | 
+| 0201 | LORA          | Invalid Version    |
+| 0301 | COMMAND       | Ill Sized Data     |
+| 0302 | COMMAND       | Invalid Command Id |
+| 0303 | COMMAND       | Parsing Failed     |
+| 0401 | CONFIGURATION | Invalid Section    |
+| 0402 | CONFIGURATION | Invalid Field      |
+| 0403 | CONFIGURATION | Invalid Value      |
+| FFFF | ALL           | None               |

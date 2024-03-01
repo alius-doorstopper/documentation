@@ -231,7 +231,8 @@ The thermistor properties is ???.
 | 18 | Set measure schedule       | Schedule a measure                       |
 | 19 | Get measure result         | Fetch the last measure result            |
 | 20 | Calibrate                  | Calibrate the sensor                     |
-| 21 | Get calibration            | Get last calibration value               | 
+| 21 | Get calibration            | Get last calibration value               |
+| 22 | Error                      | Returned when command failed             |
 
 ---
 
@@ -390,12 +391,16 @@ None
 ---
 
 ### Set IMU
+
 Reset the IMU reference to current value.
 Returns the orientation which should be 0,0,0.
 
 #### Parameters {id="set-imu-parameters"}
+
 None
+
 #### Returns {id="set-imu-returns"}
+
 - orientation: [Orientation](structures.md#orientation)
 
 ---
@@ -552,3 +557,16 @@ None
 - calibration: [AcquisitionCalibration](structures.md#acquisitioncalibration).
 
 ---
+
+### Error {id="error-command"}
+
+Returned from acquisition module when a command has failed.
+
+#### Parameters {id="error-command-parameters"}
+
+None
+
+#### Returns {id="error-command-returns"}
+
+- id: u8, the ID of the command that failed
+- code: [Error](enumerations.md#error).
