@@ -6,18 +6,19 @@ The interface module serves as the interface between the [Acquisition](acquisiti
 
 ## Commands
 
-| #  | Name                     | Connection | Description                                        | 
-|----|--------------------------|------------|----------------------------------------------------|
-| 1  | Get Version              | false      | Get bridge current version                         |
-| 2  | Get Kind                 | false      | Get device kind                                    | 
-| 3  | Get Medium Configuration | false      | Return the currently selected medium               |
-| 4  | Set Medium Configuration | false      | Set what medium to use                             |
-| 5  | Get Acquisition Mode     | true       | Request the current mode to the acquisition module |
-| 6  | Start Measure            | true       | Start a measure                                    |
-| 7  | Stop Measure             | true       | Cancel the current measure                         |
-| 8  | Get Measure Progress     | true       |                                                    |
-| 9  | Get Measure Result       | true       | Fetch a measure result                             |
-| 10 | Send Command             | true       | Send directly a command to the acquisition module  |
+| #  | Name                            | Connection | Description                                        | 
+|----|---------------------------------|------------|----------------------------------------------------|
+| 1  | Get Version                     | false      | Get bridge current version                         |
+| 2  | Get Kind                        | false      | Get device kind                                    | 
+| 3  | Get Medium Configuration        | false      | Return the currently selected medium               |
+| 4  | Set Medium Configuration        | false      | Set what medium to use                             |
+| 5  | Get Acquisition Mode            | true       | Request the current mode to the acquisition module |
+| 6  | Start Measure                   | true       | Start a measure                                    |
+| 7  | Stop Measure                    | true       | Cancel the current measure                         |
+| 8  | Get Measure Progress            | true       |                                                    |
+| 9  | Get Interface Measure Results   | true       | Fetch interface measure results                    |
+| 10 | Get Acquisition Measure Results | true       | Fetch Acquisition measure results                  |
+| 11 | Send Command                    | true       | Send directly a command to the acquisition module  |
 
 When using LoRa, and for each command that requires a connection with the acquisition module, a wake-up command is
 issued
@@ -156,30 +157,45 @@ None
 
 ---
 
-### Get Measure Result
+### Get Interface Measure Result
 
-Fetch results samples from either the Interface or acquisition modules.
+Fetch results samples from interface module.
 
-#### Parameters {id="get-measure-result-parameters"}
+#### Parameters {id="get-interface-measure-result-parameters"}
 
-- device: [DeviceKind](enumerations.md#devicekind)
 - start: u32, start index for this chunk,
 - length: u32, max number of sample to returns in this message.
 
-#### Returns {id="get-measure-result-returns"}
+#### Returns {id="get-interface-measure-result-returns"}
 
-- device: [DeviceKind](enumerations.md#devicekind)
 - start: u32, start index for the chunk,
 - length: u32, number of samples returned in this message,
 - total: u32, number of samples recorded in last acquisition,
-- samples: [Interface samples](structures.md#interfacemeasuresample), if device is
-  Interface, [Acquisition samples](structures.md#acquisitionmeasuresample)
+- samples: [Interface samples](structures.md#interfacemeasuresample).
+
+---
+
+### Get Acquisition Measure Result
+
+Fetch results samples from acquisition module.
+
+#### Parameters {id="get-acquisition-measure-result-parameters"}
+
+- start: u32, start index for this chunk,
+- length: u32, max number of sample to returns in this message.
+
+#### Returns {id="get-acquisition-measure-result-returns"}
+
+- start: u32, start index for the chunk,
+- length: u32, number of samples returned in this message,
+- total: u32, number of samples recorded in last acquisition,
+- samples: [Acquisition samples](structures.md#acquisitionmeasuresample).
 
 ---
 
 ### Send Command
 
-Allows to directly send any commands to the acquisition module
+Allows to directly send any commands to the acquisition module.
 
 #### Parameters {id="send-command-parameters"}
 
