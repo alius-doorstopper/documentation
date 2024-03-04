@@ -6,17 +6,18 @@ The interface module serves as the interface between the [Acquisition](acquisiti
 
 ## Commands
 
-| # | Name                     | Connection | Description                                        | 
-|---|--------------------------|------------|----------------------------------------------------|
-| 1 | Get Version              | false      | Get bridge current version                         |
-| 2 | Get Medium Configuration | false      | Return the currently selected medium               |
-| 3 | Set Medium Configuration | false      | Set what medium to use                             |
-| 4 | Get Acquisition Mode     | true       | Request the current mode to the acquisition module |
-| 5 | Start Measure            | true       | Start a measure                                    |
-| 6 | Stop Measure             | true       | Cancel the current measure                         |
-| 7 | Get Measure Progress     | true       |                                                    |
-| 8 | Get Measure Result       | true       | Fetch a measure result                             |
-| 9 | Send Command             | true       | Send directly a command to the acquisition module  |
+| #  | Name                     | Connection | Description                                        | 
+|----|--------------------------|------------|----------------------------------------------------|
+| 1  | Get Version              | false      | Get bridge current version                         |
+| 2  | Get Kind                 | false      | Get device kind                                    | 
+| 3  | Get Medium Configuration | false      | Return the currently selected medium               |
+| 4  | Set Medium Configuration | false      | Set what medium to use                             |
+| 5  | Get Acquisition Mode     | true       | Request the current mode to the acquisition module |
+| 6  | Start Measure            | true       | Start a measure                                    |
+| 7  | Stop Measure             | true       | Cancel the current measure                         |
+| 8  | Get Measure Progress     | true       |                                                    |
+| 9  | Get Measure Result       | true       | Fetch a measure result                             |
+| 10 | Send Command             | true       | Send directly a command to the acquisition module  |
 
 When using LoRa, and for each command that requires a connection with the acquisition module, a wake-up command is
 issued
@@ -51,6 +52,18 @@ None
 #### Returns {id="get-version-returns"}
 
 - version: [Version](structures.md#version)
+
+---
+
+### Get Kind
+
+#### Parameters {id="get-kind-parameters"}
+
+None
+
+#### Returns {id="get-kind-returns"}
+
+- kind: [DeviceKind](enumerations.md#devicekind), always Interface.
 
 ---
 
@@ -171,11 +184,11 @@ Allows to directly send any commands to the acquisition module
 #### Parameters {id="send-command-parameters"}
 
 - id: u8, command ID,
-- payload: Array(u8).
+- payload: String, representation of an Array(u8) using HEX STRING.
 
 #### Returns {id="send-command-returns"}
 
 - id: u8, command ID,
-- payload: Array(u8).
+- payload: String, representation of an Array(u8) using HEX STRING.
 
 ---

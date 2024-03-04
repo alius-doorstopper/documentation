@@ -213,27 +213,28 @@ The thermistor properties is ???.
 | #  | Name                       | Description                              |
 |----|----------------------------|:-----------------------------------------|
 | 1  | Get version                | Return current version                   |
-| 2  | Get post                   | Return the post result                   |
-| 3  | Get time                   | Return the current time                  |
-| 4  | Set time                   | Set the current time                     | 
-| 5  | Get configuration field    | Return a configuration field             |
-| 6  | Set configuration field    | Set a configuration field                |
-| 7  | Get probe connection state | Get the probe connection state           | 
-| 8  | Get battery state          | return the battery state                 |
-| 9  | Get temperature            | Return the last temperature measured     |
-| 10 | Get IMU                    | Return the last IMU measured             |
-| 11 | Set IMU                    | Reset the IMU reference to current value |
-| 12 | Start single measurement   | Run a single measurement                 |
-| 13 | Get last sample            | Return the last sample                   |
-| 14 | Sleep                      | Switch from idle to sleep mode           | 
-| 15 | Wake up                    | Switch from sleep to idle mode           | 
-| 16 | Shutdown                   | Shutdown the device                      |
-| 17 | Get measure schedule       | Return the next schedule measure         |
-| 18 | Set measure schedule       | Schedule a measure                       |
-| 19 | Get measure result         | Fetch the last measure result            |
-| 20 | Calibrate                  | Calibrate the sensor                     |
-| 21 | Get calibration            | Get last calibration value               |
-| 22 | Error                      | Returned when command failed             |
+| 2  | Get kind                   | Return device kind                       |
+| 3  | Get post                   | Return the post result                   |
+| 4  | Get time                   | Return the current time                  |
+| 5  | Set time                   | Set the current time                     | 
+| 6  | Get configuration field    | Return a configuration field             |
+| 7  | Set configuration field    | Set a configuration field                |
+| 8  | Get probe connection state | Get the probe connection state           | 
+| 9  | Get battery state          | return the battery state                 |
+| 10 | Get temperature            | Return the last temperature measured     |
+| 11 | Get IMU                    | Return the last IMU measured             |
+| 12 | Set IMU                    | Reset the IMU reference to current value |
+| 13 | Start single measurement   | Run a single measurement                 |
+| 14 | Get last sample            | Return the last sample                   |
+| 15 | Sleep                      | Switch from idle to sleep mode           | 
+| 16 | Wake up                    | Switch from sleep to idle mode           | 
+| 17 | Shutdown                   | Shutdown the device                      |
+| 18 | Get measure schedule       | Return the next schedule measure         |
+| 19 | Set measure schedule       | Schedule a measure                       |
+| 20 | Get measure result         | Fetch the last measure result            |
+| 21 | Calibrate                  | Calibrate the sensor                     |
+| 22 | Get calibration            | Get last calibration value               |
+| 23 | Error                      | Returned when command failed             |
 
 ---
 
@@ -248,6 +249,18 @@ none
 #### Returns {id="get-version-returns"}
 
 - version: [Version](structures.md#version).
+
+---
+
+### GetKind
+
+#### Parameters {id="get-kind-parameters"}
+
+None
+
+#### Returns {id="get-kind-returns"}
+
+- kind: [DeviceKind](enumerations.md#devicekind), always Acquisition.
 
 ---
 
