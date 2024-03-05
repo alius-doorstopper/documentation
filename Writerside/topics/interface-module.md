@@ -19,6 +19,7 @@ The interface module serves as the interface between the [Acquisition](acquisiti
 | 9  | Get Interface Measure Results   | true       | Fetch interface measure results                    |
 | 10 | Get Acquisition Measure Results | true       | Fetch Acquisition measure results                  |
 | 11 | Send Command                    | true       | Send directly a command to the acquisition module  |
+| 12 | Error                           | false      | Returned when command failed                       |
 
 When using LoRa, and for each command that requires a connection with the acquisition module, a wake-up command is
 issued
@@ -208,3 +209,16 @@ Allows to directly send any commands to the acquisition module.
 - payload: String, representation of an Array(u8) using HEX STRING.
 
 ---
+
+### Error {id="error-command"}
+
+Returned from acquisition module when a command has failed.
+
+#### Parameters {id="error-command-parameters"}
+
+None
+
+#### Returns {id="error-command-returns"}
+
+- id: u8, the ID of the command that failed
+- code: [Error](enumerations.md#error).
