@@ -234,7 +234,8 @@ The thermistor properties is ???.
 | 20 | Get measure result         | Fetch the last measure result            |
 | 21 | Calibrate                  | Calibrate the sensor                     |
 | 22 | Get calibration            | Get last calibration value               |
-| 23 | Error                      | Returned when command failed             |
+| 23 | Restart                    | Request the device to restart            |
+| 24 | Error                      | Returned when command failed             |
 
 ---
 
@@ -569,6 +570,22 @@ None
 #### Returns {id="get-calibration-returns"}
 
 - calibration: [AcquisitionCalibration](structures.md#acquisitioncalibration).
+
+---
+
+### Restart
+
+Request the device to restart.
+
+Restart is not immediate, allowing the device to reply.
+
+#### Parameters {id="restart-parameters"}
+
+None
+
+#### Returns {id="restart-returns"}
+
+None
 
 ---
 
