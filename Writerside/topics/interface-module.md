@@ -4,6 +4,33 @@
 
 The interface module serves as the interface between the [Acquisition](acquisition-module.md) module and the GUI
 
+## Configuration
+
+The device configuration is stored inside the `config.ini` file.
+
+If the file is missing, a default one is created with the following content
+
+```Ini
+[Application]
+logLevel        = error       # Set maximum log level: none, error, warning, info, debug, all
+
+[Measure]
+meanWidth       = 1           # number of sample to use for the moving average
+
+[LoRa]
+address         = 00000000    # 8-digit hex number representing the LoRa address of the device. Must be unique.
+bandwith        = 8           # 0: 7.8KHz, 1: 10.4KHz, 2: 15.6KHz, 3: 20.8KHz, 4: 41.7KHz, 5: 62.5KHz, 6: 125KHz, 7: 250KHz, 8: 500KHz 
+codingRate      = 1           # 1: 4/5, 2: 4/6, 3: 4/7, 4: 4/8
+spreadingFactor = 7           # 6 to 12, the lower the faster, the higher the further 
+hopPeriod       = 32          # number of symbols between each Frequency Hop, 0 disable it, [0 - 255]
+```
+
+> The address field allows the interface to differentiate devices over LoRa.
+> The default value will be generated based on the MCU unique address but there is no
+> guarantee that the result will be unique.
+> Make sure that each of your acquisition module have a different address
+> {style="warning"}
+
 ## Commands
 
 | #  | Name                            | Connection | Description                                        | 
@@ -12,14 +39,17 @@ The interface module serves as the interface between the [Acquisition](acquisiti
 | 2  | Get Kind                        | false      | Get device kind                                    | 
 | 3  | Get Medium Configuration        | false      | Return the currently selected medium               |
 | 4  | Set Medium Configuration        | false      | Set what medium to use                             |
-| 5  | Get Acquisition Mode            | true       | Request the current mode to the acquisition module |
-| 6  | Start Measure                   | true       | Start a measure                                    |
-| 7  | Stop Measure                    | true       | Cancel the current measure                         |
-| 8  | Get Measure Progress            | true       |                                                    |
-| 9  | Get Interface Measure Results   | true       | Fetch interface measure results                    |
-| 10 | Get Acquisition Measure Results | true       | Fetch Acquisition measure results                  |
-| 11 | Send Command                    | true       | Send directly a command to the acquisition module  |
-| 12 | Error                           | false      | Returned when command failed                       |
+| 5  | Get Configuration Field         | false      | Get a configuration field                          |
+| 6  | Set Configuration Field         | false      | Set a configuration field                          | 
+| 7  | Get Acquisition Mode            | true       | Request the current mode to the acquisition module |
+| 8  | Start Measure                   | true       | Start a measure                                    |
+| 9  | Stop Measure                    | true       | Cancel the current measure                         |
+| 10 | Get Measure Progress            | true       |                                                    |
+| 11 | Get Interface Measure Results   | true       | Fetch interface measure results                    |
+| 12 | Get Acquisition Measure Results | true       | Fetch Acquisition measure results                  |
+| 13 | Send Command                    | true       | Send directly a command to the acquisition module  |
+| 14 | Reset                           | false      | Reset the device                                   |
+| 15 | Error                           | false      | Returned when command failed                       |
 
 When using LoRa, and for each command that requires a connection with the acquisition module, a wake-up command is
 issued
@@ -95,6 +125,45 @@ Change module medium configuration.
 #### Returns {id="set-medium-configuration-returns"}
 
 - configuration: [MediumConfiguration](structures.md#mediumconfiguration).
+
+---
+
+### Get Configuration Field {id="get-configuration-field"}
+
+Fetch a field from the configuration.
+
+#### Parameters {id="get-configuration-field-parameters"}
+
+- section: String,
+- name: String.
+
+#### Returns {id="get-configuration-field-returns"}
+
+- section: String,
+- name: String,
+- value: String, empty if non-existent.
+
+---
+
+### Set Configuration Field {id="set-configuration-field"}
+
+Set a field to the configuration.
+
+If the value is empty, the field will be removed from the configuration.
+
+If there is no field inside a section, it will be removed from the configuration.
+
+#### Parameters {id="set-configuration-field-parameters"}
+
+- section : String,
+- name: String,
+- value: String.
+
+#### Returns {id="set-configuration-field-returns"}
+
+- section: String,
+- name: String,
+- value: String.
 
 ---
 
@@ -207,6 +276,22 @@ Allows to directly send any commands to the acquisition module.
 
 - id: u8, command ID,
 - payload: String, representation of an Array(u8) using HEX STRING.
+
+---
+
+### Restart
+
+Request the device to restart.
+
+Restart is not immediate, allowing the device to reply.
+
+#### Parameters {id="restart-parameters"}
+
+None
+
+#### Returns {id="restart-returns"}
+
+None
 
 ---
 
