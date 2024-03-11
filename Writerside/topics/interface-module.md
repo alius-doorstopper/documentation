@@ -33,23 +33,22 @@ hopPeriod       = 32          # number of symbols between each Frequency Hop, 0 
 
 ## Commands
 
-| Name                            | Connection | Description                                        | 
-|---------------------------------|------------|----------------------------------------------------|
-| Get Version                     | false      | Get bridge current version                         |
-| Get Kind                        | false      | Get device kind                                    | 
-| Get Medium Configuration        | false      | Return the currently selected medium               |
-| Set Medium Configuration        | false      | Set what medium to use                             |
-| Get Configuration Field         | false      | Get a configuration field                          |
-| Set Configuration Field         | false      | Set a configuration field                          | 
-| Get Acquisition Mode            | true       | Request the current mode to the acquisition module |
-| Start Measure                   | true       | Start a measure                                    |
-| Stop Measure                    | true       | Cancel the current measure                         |
-| Get Measure Progress            | true       |                                                    |
-| Get Interface Measure Results   | true       | Fetch interface measure results                    |
-| Get Acquisition Measure Results | true       | Fetch Acquisition measure results                  |
-| Send Command                    | true       | Send directly a command to the acquisition module  |
-| Reset                           | false      | Reset the device                                   |
-| Error                           | false      | Returned when command failed                       |
+| Name                     | Connection | Description                                        | 
+|--------------------------|------------|----------------------------------------------------|
+| Get Version              | false      | Get bridge current version                         |
+| Get Kind                 | false      | Get device kind                                    | 
+| Get Medium Configuration | false      | Return the currently selected medium               |
+| Set Medium Configuration | false      | Set what medium to use                             |
+| Get Configuration Field  | false      | Get a configuration field                          |
+| Set Configuration Field  | false      | Set a configuration field                          | 
+| Get Acquisition Mode     | true       | Request the current mode to the acquisition module |
+| Start Measure            | true       | Start a measure                                    |
+| Stop Measure             | true       | Cancel the current measure                         |
+| Get Measure Progress     | true       | Fetch current progress of the measurement          |
+| Get Measure Results      | true       | Fetch interface measure results                    |
+| Send Command             | true       | Send directly a command to the acquisition module  |
+| Reset                    | false      | Reset the device                                   |
+| Error                    | false      | Returned when command failed                       |
 
 > Like other enumerations, Command ID start at 1.
 > 0 is reserved as unknown
@@ -230,7 +229,7 @@ None
 
 ---
 
-### Get Interface Measure Result
+### Get Measure Results
 
 Fetch results samples from interface module.
 
@@ -245,24 +244,6 @@ Fetch results samples from interface module.
 - length: u32, number of samples returned in this message,
 - total: u32, number of samples recorded in last acquisition,
 - samples: [Interface samples](structures.md#interfacemeasuresample).
-
----
-
-### Get Acquisition Measure Result
-
-Fetch results samples from acquisition module.
-
-#### Parameters {id="get-acquisition-measure-result-parameters"}
-
-- start: u32, start index for this chunk,
-- length: u32, max number of sample to returns in this message.
-
-#### Returns {id="get-acquisition-measure-result-returns"}
-
-- start: u32, start index for the chunk,
-- length: u32, number of samples returned in this message,
-- total: u32, number of samples recorded in last acquisition,
-- samples: [Acquisition samples](structures.md#acquisitionmeasuresample).
 
 ---
 
