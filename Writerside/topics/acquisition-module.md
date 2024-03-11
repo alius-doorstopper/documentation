@@ -210,32 +210,35 @@ The thermistor properties is ???.
 
 ## Commands
 
-| #  | Name                       | Description                              |
-|----|----------------------------|:-----------------------------------------|
-| 1  | Get version                | Return current version                   |
-| 2  | Get kind                   | Return device kind                       |
-| 3  | Get post                   | Return the post result                   |
-| 4  | Get time                   | Return the current time                  |
-| 5  | Set time                   | Set the current time                     | 
-| 6  | Get configuration field    | Return a configuration field             |
-| 7  | Set configuration field    | Set a configuration field                |
-| 8  | Get probe connection state | Get the probe connection state           | 
-| 9  | Get battery state          | return the battery state                 |
-| 10 | Get temperature            | Return the last temperature measured     |
-| 11 | Get IMU                    | Return the last IMU measured             |
-| 12 | Set IMU                    | Reset the IMU reference to current value |
-| 13 | Start single measurement   | Run a single measurement                 |
-| 14 | Get last sample            | Return the last sample                   |
-| 15 | Sleep                      | Switch from idle to sleep mode           | 
-| 16 | Wake up                    | Switch from sleep to idle mode           | 
-| 17 | Shutdown                   | Shutdown the device                      |
-| 18 | Get measure schedule       | Return the next schedule measure         |
-| 19 | Set measure schedule       | Schedule a measure                       |
-| 20 | Get measure result         | Fetch the last measure result            |
-| 21 | Calibrate                  | Calibrate the sensor                     |
-| 22 | Get calibration            | Get last calibration value               |
-| 23 | Restart                    | Request the device to restart            |
-| 24 | Error                      | Returned when command failed             |
+| Name                       | Description                              |
+|----------------------------|:-----------------------------------------|
+| Get version                | Return current version                   |
+| Get kind                   | Return device kind                       |
+| Get post                   | Return the post result                   |
+| Get time                   | Return the current time                  |
+| Set time                   | Set the current time                     | 
+| Get configuration field    | Return a configuration field             |
+| Set configuration field    | Set a configuration field                |
+| Reload configuration       | Apply configuration changes to device    | 
+| Get probe connection state | Get the probe connection state           | 
+| Get battery state          | return the battery state                 |
+| Get temperature            | Return the last temperature measured     |
+| Get IMU                    | Return the last IMU measured             |
+| Set IMU                    | Reset the IMU reference to current value |
+| Start single measurement   | Run a single measurement                 |
+| Get last sample            | Return the last sample                   |
+| Sleep                      | Switch from idle to sleep mode           | 
+| Wake up                    | Switch from sleep to idle mode           | 
+| Shutdown                   | Shutdown the device                      |
+| Get measure schedule       | Return the next schedule measure         |
+| Set measure schedule       | Schedule a measure                       |
+| Get measure result         | Fetch the last measure result            |
+| Calibrate                  | Calibrate the sensor                     |
+| Get calibration            | Get last calibration value               |
+| Error                      | Returned when command failed             |
+
+> Like other enumerations, Command ID start at 1.
+> 0 is reserved as unknown
 
 ---
 
@@ -345,6 +348,18 @@ If there is no field inside a section, it will be removed from the configuration
 - value: String.
 
 ---
+
+### Reload Configuration
+
+Request the device to reload its configuration, updating its peripherals and behaviour.
+
+#### Parameters {id="reload-configuration-parameters"}
+None
+#### Returns {id="reload-configuration-returns"}
+None
+
+---
+
 
 ### Get Probe Connection State
 
@@ -570,22 +585,6 @@ None
 #### Returns {id="get-calibration-returns"}
 
 - calibration: [AcquisitionCalibration](structures.md#acquisitioncalibration).
-
----
-
-### Restart
-
-Request the device to restart.
-
-Restart is not immediate, allowing the device to reply.
-
-#### Parameters {id="restart-parameters"}
-
-None
-
-#### Returns {id="restart-returns"}
-
-None
 
 ---
 

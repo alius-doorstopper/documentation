@@ -33,23 +33,26 @@ hopPeriod       = 32          # number of symbols between each Frequency Hop, 0 
 
 ## Commands
 
-| #  | Name                            | Connection | Description                                        | 
-|----|---------------------------------|------------|----------------------------------------------------|
-| 1  | Get Version                     | false      | Get bridge current version                         |
-| 2  | Get Kind                        | false      | Get device kind                                    | 
-| 3  | Get Medium Configuration        | false      | Return the currently selected medium               |
-| 4  | Set Medium Configuration        | false      | Set what medium to use                             |
-| 5  | Get Configuration Field         | false      | Get a configuration field                          |
-| 6  | Set Configuration Field         | false      | Set a configuration field                          | 
-| 7  | Get Acquisition Mode            | true       | Request the current mode to the acquisition module |
-| 8  | Start Measure                   | true       | Start a measure                                    |
-| 9  | Stop Measure                    | true       | Cancel the current measure                         |
-| 10 | Get Measure Progress            | true       |                                                    |
-| 11 | Get Interface Measure Results   | true       | Fetch interface measure results                    |
-| 12 | Get Acquisition Measure Results | true       | Fetch Acquisition measure results                  |
-| 13 | Send Command                    | true       | Send directly a command to the acquisition module  |
-| 14 | Reset                           | false      | Reset the device                                   |
-| 15 | Error                           | false      | Returned when command failed                       |
+| Name                            | Connection | Description                                        | 
+|---------------------------------|------------|----------------------------------------------------|
+| Get Version                     | false      | Get bridge current version                         |
+| Get Kind                        | false      | Get device kind                                    | 
+| Get Medium Configuration        | false      | Return the currently selected medium               |
+| Set Medium Configuration        | false      | Set what medium to use                             |
+| Get Configuration Field         | false      | Get a configuration field                          |
+| Set Configuration Field         | false      | Set a configuration field                          | 
+| Get Acquisition Mode            | true       | Request the current mode to the acquisition module |
+| Start Measure                   | true       | Start a measure                                    |
+| Stop Measure                    | true       | Cancel the current measure                         |
+| Get Measure Progress            | true       |                                                    |
+| Get Interface Measure Results   | true       | Fetch interface measure results                    |
+| Get Acquisition Measure Results | true       | Fetch Acquisition measure results                  |
+| Send Command                    | true       | Send directly a command to the acquisition module  |
+| Reset                           | false      | Reset the device                                   |
+| Error                           | false      | Returned when command failed                       |
+
+> Like other enumerations, Command ID start at 1.
+> 0 is reserved as unknown
 
 When using LoRa, and for each command that requires a connection with the acquisition module, a wake-up command is
 issued
