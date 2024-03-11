@@ -45,9 +45,11 @@
 
 ## Orientation
 
-- yaw: u32,
-- pitch: u32,
-- roll: u32.
+Each axis is given in degrees.
+
+- yaw: i16 ([-179, 179]),
+- pitch: i16 ([-89, 89]),
+- roll: i16 ([-179, 179]).
 
 ## AcquisitionMeasureSample
 
