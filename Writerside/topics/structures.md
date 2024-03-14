@@ -53,14 +53,16 @@ Each axis is given in degrees.
 
 ## AcquisitionMeasureSample
 
-- tick: [Time](alias.md#time), time when the sample was stored,
+- itTick: [Time](alias.md#time), time when the sample was stored,
+- adcTick: [Time](alias.md#time), time when ADC produced sample,
 - gauges: [Array(float, 4)](alias.md#array-x-y), voltage measured by the gauges in volt,
 - orientation: [Orientation](#orientation),
 - temperature: float, voltage measured by the temperature sensor.
 
 ## InterfaceMeasureSample
 
-- tick: [Time](alias.md#time), time when the sample was stored,
+- itTick: [Time](alias.md#time), time when the sample was stored,
+- adcTick: [Time](alias.md#time), time when ADC produced sample,
 - drill: float, voltage measured.
 
 ## MediumConfiguration
