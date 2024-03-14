@@ -54,14 +54,14 @@ Each axis is given in degrees.
 ## AcquisitionMeasureSample
 
 - tick: [Time](alias.md#time), time when the sample was stored,
-- gauges: [Array(u32, 4)](alias.md#array-x-y), voltage measured by the gauges in volt,
+- gauges: [Array(float, 4)](alias.md#array-x-y), voltage measured by the gauges in volt,
 - orientation: [Orientation](#orientation),
-- temperature: u32, voltage measured by the temperature sensor.
+- temperature: float, voltage measured by the temperature sensor.
 
 ## InterfaceMeasureSample
 
 - tick: [Time](alias.md#time), time when the sample was stored,
-- drill: u32, voltage measured.
+- drill: float, voltage measured.
 
 ## MediumConfiguration
 
