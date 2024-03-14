@@ -47,9 +47,9 @@
 
 Each axis is given in degrees.
 
-- yaw: i16 ([-179, 179]),
-- pitch: i16 ([-89, 89]),
-- roll: i16 ([-179, 179]).
+- x: i16 ([-179, 179]),
+- y: i16 ([-89, 89]),
+- z: i16 ([-179, 179]).
 
 ## AcquisitionMeasureSample
 
