@@ -14,15 +14,6 @@
 - sender: [Address](alias.md#address), address of the sender,
 - payload: [Array(u8)](alias.md#array-x), content of the message. might be empty.
 
-## DiscoveredDevice
-
-- name: [String](alias.md#string),
-- address: [Address](alias.md#address), Unique address of the device,
-- can: bool, tell if it was possible to reach the device through can medium
-- lora: bool, tell if it was possible to reach the device through lora medium
-- rssi: u8, if medium include lora
-- lastSeen: [Time](alias.md#time), when the device was last seen
-
 ## AcquisitionModuleState
 
 - name: [String](alias.md#string),
@@ -72,8 +63,8 @@ Each axis is given in degrees.
 
 ## GaugeCalibration
 
-- balanced: u32,
-- unbalanced: u32.
+- balanced: float,
+- unbalanced: float.
 
 ## AcquisitionCalibration
 
