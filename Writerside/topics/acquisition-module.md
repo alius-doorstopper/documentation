@@ -29,7 +29,7 @@ thermistor      = 1           # kind of thermistor used by the probe
 
 [LoRa]
 address         = 00000000    # 8-digit hex number representing the LoRa address of the device. Must be unique.
-bandwith        = 8           # 0: 7.8KHz, 1: 10.4KHz, 2: 15.6KHz, 3: 20.8KHz, 4: 41.7KHz, 5: 62.5KHz, 6: 125KHz, 7: 250KHz, 8: 500KHz 
+bandwith        = 9           # 0: 7.8KHz, 1: 10.4KHz, 2: 15.6KHz, 3: 20.8KHz, 4: 31.2kHz, 5: 41.7KHz, 6: 62.5KHz, 7: 125KHz, 8: 250KHz, 9: 500KHz 
 codingRate      = 1           # 1: 4/5, 2: 4/6, 3: 4/7, 4: 4/8
 spreadingFactor = 7           # 6 to 12, the lower the faster, the higher the further 
 hopPeriod       = 32          # number of symbols between each Frequency Hop, 0 disable it, [0 - 255]
