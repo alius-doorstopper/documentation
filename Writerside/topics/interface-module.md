@@ -13,6 +13,7 @@ If the file is missing, a default one is created with the following content
 ```Ini
 [Application]
 logLevel        = error       # Set maximum log level: none, error, warning, info, debug, all
+restartPeriod   = 1000        # Time between send trials in ms
 
 [Measure]
 meanWidth       = 1           # number of sample to use for the moving average
