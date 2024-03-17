@@ -34,23 +34,23 @@ hopPeriod       = 32          # number of symbols between each Frequency Hop, 0 
 
 ## Commands
 
-| Name                     | Connection | Description                                        | 
-|--------------------------|------------|----------------------------------------------------|
-| Get Version              | false      | Get bridge current version                         |
-| Get Kind                 | false      | Get device kind                                    | 
-| Get Medium Configuration | false      | Return the currently selected medium               |
-| Set Medium Configuration | false      | Set what medium to use                             |
-| Get Configuration Field  | false      | Get a configuration field                          |
-| Set Configuration Field  | false      | Set a configuration field                          | 
-| Get Acquisition Mode     | true       | Request the current mode to the acquisition module |
-| Sync device              | true       | Synchronize Interface and Acquisition modules      |
-| Get Measure Schedule     | true       | Get current measure schedule                       |
-| Set Measure Schedule     | true       | Set current measure schedule                       |
-| Get Measure Progress     | true       | Fetch current progress of the measurement          |
-| Get Measure Results      | true       | Fetch interface measure results                    |
-| Send Command             | true       | Send directly a command to the acquisition module  |
-| Reset                    | false      | Reset the device                                   |
-| Error                    | false      | Returned when command failed                       |
+| Name                     | Connection | Description                                       | 
+|--------------------------|------------|---------------------------------------------------|
+| Get Version              | false      | Get bridge current version                        |
+| Get Kind                 | false      | Get device kind                                   | 
+| Get Medium Configuration | false      | Return the currently selected medium              |
+| Set Medium Configuration | false      | Set what medium to use                            |
+| Get Configuration Field  | false      | Get a configuration field                         |
+| Set Configuration Field  | false      | Set a configuration field                         | 
+| Reload Configuration     | false      | Reload device configuration                       | 
+| Get Time                 | false      | Return the interface module current time          |
+| Sync device              | true       | Synchronize Interface and Acquisition modules     |
+| Get Measure Schedule     | true       | Get current measure schedule                      |
+| Set Measure Schedule     | true       | Set current measure schedule                      |
+| Get Measure Progress     | true       | Fetch current progress of the measurement         |
+| Get Measure Results      | true       | Fetch interface measure results                   |
+| Send Command             | true       | Send directly a command to the acquisition module |
+| Error                    | false      | Returned when command failed                      |
 
 > Like other enumerations, Command ID start at 1.
 > 0 is reserved as unknown
@@ -151,17 +151,17 @@ If there is no field inside a section, it will be removed from the configuration
 
 ---
 
-### Get Acquisition Mode
+### Get Time
 
-Fetch the connected acquisition module mode.
+Fetch interface time
 
-#### Parameters {id="get-acquisition-mode-parameters"}
+#### Parameters {id="get-time-parameters"}
 
 None
 
-#### Returns {id="get-acquisition-mode-returns"}
+#### Returns {id="get-time-returns"}
 
-- mode: [AcquisitionMode](enumerations.md#acquisitionmode)
+- time : [Time](alias.md#time)
 
 ---
 
