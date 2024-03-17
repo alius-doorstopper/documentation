@@ -43,8 +43,9 @@ hopPeriod       = 32          # number of symbols between each Frequency Hop, 0 
 | Get Configuration Field  | false      | Get a configuration field                          |
 | Set Configuration Field  | false      | Set a configuration field                          | 
 | Get Acquisition Mode     | true       | Request the current mode to the acquisition module |
-| Start Measure            | true       | Start a measure                                    |
-| Stop Measure             | true       | Cancel the current measure                         |
+| Sync device              | true       | Synchronize Interface and Acquisition modules      |
+| Get Measure Schedule     | true       | Get current measure schedule                       |
+| Set Measure Schedule     | true       | Set current measure schedule                       |
 | Get Measure Progress     | true       | Fetch current progress of the measurement          |
 | Get Measure Results      | true       | Fetch interface measure results                    |
 | Send Command             | true       | Send directly a command to the acquisition module  |
@@ -53,26 +54,6 @@ hopPeriod       = 32          # number of symbols between each Frequency Hop, 0 
 
 > Like other enumerations, Command ID start at 1.
 > 0 is reserved as unknown
-
-When using LoRa, and for each command that requires a connection with the acquisition module, a wake-up command is
-issued
-first in order to make sure that the device is awake. If the device does not wake up, the command fails.
-This wake-up call applies for: [Get Acquisition Mode](#get-acquisition-mode), [Start Measure](#start-measure), [Stop
-Measure](#stop-measure), [Get Measure Progress](#get-measure-progress), [Send Command](#send-command)
-
-```plantuml
-@startuml
-gui -> interface: command
-activate interface
-interface -> acquisition: wake-up
-activate acquisition
-return awake
-interface -> acquisition: command
-activate acquisition
-return response
-return response
-@enduml
-```
 
 --- 
 
@@ -184,31 +165,44 @@ None
 
 ---
 
-### Start Measure
+### Sync Device
 
-Trigger a new measurements.
-This will synchronize both modules then schedule a measure in the next 15 seconds.
+Request a synchronisation between interface and acquisition module
 
-#### Parameters {id="start-measure-parameters"}
+#### Parameters {id="sync-device-parameters"}
 
-- duration: [Duration](alias.md#duration), the duration of the measure.
+None
 
-#### Returns {id="start-measure-returns"}
+#### Returns {id="sync-device-returns"}
+
+- interfaceTick : [Time](alias.md#time),
+- acquisitionTick : [Time](alias.md#time).
+
+---
+
+### Get Measure Schedule
+
+Get current measure schedule
+
+#### Parameters {id="get-measure-schedule-parameters"}
+
+None
+
+#### Returns {id="get-measure-schedule-returns"}
 
 - schedule: [MeasureSchedule](structures.md#measureschedule), the schedule of the measure.
 
 ---
 
-### Stop Measure
+### Set Measure Schedule
 
-Stop or cancel a measurements.
-Does not invalidate the results.
+Update measure schedule
 
-#### Parameters {id="stop-measure-parameters"}
+#### Parameters {id="set-measure-schedule-parameters"}
 
-None
+- schedule: [MeasureSchedule](structures.md#measureschedule).
 
-#### Returns {id="stop-measure-returns"}
+#### Returns {id="set-measure-schedule-returns"}
 
 - schedule: [MeasureSchedule](structures.md#measureschedule).
 

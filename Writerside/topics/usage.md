@@ -38,50 +38,87 @@ It allows the interface to set the acquisition module systick.
 
 ```plantuml
 @startuml
-gui -> interface: start measure
+gui -> interface : wake up*\ncommands with an '*' are\ndone through Send Command
 activate interface
-interface -> acquisition: wake up
+interface -> acquisition : wake up*
 activate acquisition
-return awake
-interface -> acquisition : set time
+return awake*
+return awake*
+
+gui -> interface: sync time
+activate interface
+interface -> acquisition: set time
 activate acquisition
 return time
-interface -> acquisition : Set measure schedule 
+return ok
+
+gui -> interface : set measure schedule* (start)
+activate interface
+interface -> acquisition : set measure schedule*
 activate acquisition
-return measure schedule
-return measure schedule
+return schedule
+return schedule
+
+gui -> interface: set measure schedule (start)
+activate interface
+return schedule
+
 gui -> interface: get measure progress
 activate interface
 return measure progress
-gui -> interface: get measure result, acquisition
-activate interface 
-interface -> acquisition : get measure result, acquisition
-activate acquisition
-return measure acquisition
-return measure acquisition
-gui -> interface: get measure result, interface
+
+break Early stop    
+gui -> interface : set measure schedule*
 activate interface
-return measure interface
+interface -> acquisition : set measure schedule* 
+activate acquisition
+return schedule
+return schedule
+
+gui -> interface: set measure schedule
+activate interface
+return schedule
+
+gui -> interface: get measure result*
+activate interface 
+interface -> acquisition : get measure result*
+activate acquisition
+return measure result
+return measure result
+gui -> interface: get measure result
+activate interface
+return measure result
 @enduml
 ```
 
 ### Schedule a measure
 
-The user can trigger a new measurements using the [Start Measure](interface-module.md#start-measure) command.
+[//]: # (The user can trigger a new measurements using the [Start Measure]&#40;interface-module.md#start-measure&#41; command.)
 
-The interface starts by making sure that the device is awake, using the [wake-up](acquisition-module.md#wake-up) command
-Then, it uses [Set Time](acquisition-module.md#set-time) in order to synchronise both module.
-Finally, it uses [Set Schedule Measure](acquisition-module.md#set-measure-schedule).
-For each of these steps, if no response was given, the procedure ends and reports an error.
+[//]: # ()
+[//]: # (The interface starts by making sure that the device is awake, using the [wake-up]&#40;acquisition-module.md#wake-up&#41; command)
 
-If the user wants to cancel a measure, it can use the [Stop Measure](interface-module.md#stop-measure) commands.
-The interface will then schedule a new MeasureSchedule with a time of 0. Doing so does not invalidate current measure,
-which means it is safe to cancel a measure and read it results.
+[//]: # (Then, it uses [Set Time]&#40;acquisition-module.md#set-time&#41; in order to synchronise both module.)
 
-[MeasureSchedule](structures.md#measureschedule) are used in order to avoid LoRa messages misses. Since both modules
-must be synced together, and LoRa messages might miss, just sending a start command might end up starting the
-measurement on the acquisition module without the interface.
-Using schedule measurements allows both device to check that they are synced before running a measurement.
+[//]: # (Finally, it uses [Set Schedule Measure]&#40;acquisition-module.md#set-measure-schedule&#41;.)
+
+[//]: # (For each of these steps, if no response was given, the procedure ends and reports an error.)
+
+[//]: # ()
+[//]: # (If the user wants to cancel a measure, it can use the [Stop Measure]&#40;interface-module.md#stop-measure&#41; commands.)
+
+[//]: # (The interface will then schedule a new MeasureSchedule with a time of 0. Doing so does not invalidate current measure,)
+
+[//]: # (which means it is safe to cancel a measure and read it results.)
+
+[//]: # ()
+[//]: # ([MeasureSchedule]&#40;structures.md#measureschedule&#41; are used in order to avoid LoRa messages misses. Since both modules)
+
+[//]: # (must be synced together, and LoRa messages might miss, just sending a start command might end up starting the)
+
+[//]: # (measurement on the acquisition module without the interface.)
+
+[//]: # (Using schedule measurements allows both device to check that they are synced before running a measurement.)
 
 ### During a measurements
 
