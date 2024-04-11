@@ -2,13 +2,14 @@ name: Build documentation
 
 on:
   push:
-    # To trigger the workflow once you push to the `main` branch
+    # To trigger the workflows once you push to the `main` branch
     # Replace `main` with your branch’s name
     branches: ["main"]
-  # Specify to run a workflow manually from the Actions tab on GitHub
+  # Specify to run a workflows manually from the Actions tab on GitHub
   workflow_dispatch:
 
 permissions:
+  contents: read
   id-token: write
   pages: write
 
